@@ -66,7 +66,7 @@ install:
 		rm -rf .venv; \
 		ln -s "$(PROJECT_DIR)"/.venv .venv; \
 		printf "\033[0;33m[INFO]\033[0m Downloading dependencies for project...\n"; \
-		uv add pydantic; \
+		uv add pydantic fire; \
 		printf "\033[0;33m[INFO]\033[0m  Downloading dev dependencies for project..."; \
 		uv add --dev mypy flake8 flake8-docstrings; \
 	fi
