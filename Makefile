@@ -4,12 +4,11 @@ FOLDER := src
 ARCHIVE := data+moulinette.tar.xz
 PROJECT_DIR := /goinfre/$${USER}/containers/$(PROJECT_NAME)
 
-MYPY_FLAGS := \
-	--warn-return-any \
-	--warn-unused-ignores \
-	--ignore-missing-imports \
-	--disallow-untyped-defs \
-	--check-untyped-defs
+VENV_PATH := ${VENV}/bin/activate
+MYPYSTRICT := mypy --strict .
+FLAKE8 := flake8 .
+MYPYFLAGS := mypy --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs .
+
 
 .PHONY: help install run debug clean fclean erase lint lint-strict push
 
@@ -72,7 +71,7 @@ install:
 	fi
 
 run: install
-	@uv run python -m "$(FOLDER)" --max_chunk_size 1500
+	@uv run python -m "$(FOLDER)" index --max_chunk_size 1500
 
 
 debug:
@@ -87,11 +86,15 @@ fclean: clean
 erase: fclean
 	@rm -rf pyproject.toml uv.lock data moulinette
 
-lint:
-	@cd "$(FOLDER)" && flake8 . && mypy . "$(MYPY_FLAGS)"
+lint: install
+	@. ${VENV_PATH}; \
+	cd "$(FOLDER)"; \
+	${FLAKE8} && ${MYPYFLAGS}
 
-lint-strict:
-	@cd "$(FOLDER)" && flake8 . && mypy . --strict
+lint-strict: install
+	@. ${VENV_PATH}; \
+	cd "$(FOLDER)"; \
+	${FLAKE8} && ${MYPYSTRICT}
 
 push:
 	@set -e; \

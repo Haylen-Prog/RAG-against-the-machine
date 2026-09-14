@@ -3,9 +3,13 @@ from src import CLI
 
 
 class Monitoring:
-	def __init__(self) -> None:
-		fire.Fire(CLI)
+    def __init__(self) -> None:
+        try:
+            fire.Fire(CLI)
+        except ValueError as error:
+            print(f"[CLI_ERROR]: {error}")
 
 
-def main():
-	monitor = Monitoring()
+def main() -> None:
+    monitor = Monitoring()
+    print(monitor)
