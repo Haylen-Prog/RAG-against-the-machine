@@ -1,0 +1,31 @@
+[project]
+name = "42-project"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "bm25s>=0.3.13",
+    "chonkie>=1.7.0",
+    "fire>=0.7.1",
+    "ollama>=0.6.3",
+    "pydantic>=2.14.1",
+    "pystemmer>=3.1.0",
+    "tqdm>=4.70.1",
+    "tree-sitter-language-pack>=1.22.1",
+    "types-tqdm>=4.70.0.20260906",
+    "vllm>=0.31.0",
+]
+
+[dependency-groups]
+dev = [
+    "flake8>=7.4.1",
+    "flake8-docstrings>=1.7.0",
+    "mypy>=2.4.0",
+]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["bm25s", "bm25s.*", "Stemmer", "fire"]
+ignore_missing_imports = true

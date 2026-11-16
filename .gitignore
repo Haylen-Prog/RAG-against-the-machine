@@ -1,0 +1,7 @@
+data/
+moulinette/
+*.tar.xz
+ollama.log
+.venv/
+__pycache__/
+.mypy_cache/
